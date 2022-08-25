@@ -6,7 +6,8 @@ export const initialState =[
     },
     {
         id:2,
-        todoText:'Learn Redux',
+        todoText:'Learn redux',
         completed:false,
+        color:'red'
     },
 ]

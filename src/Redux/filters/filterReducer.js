@@ -8,10 +8,10 @@ const filterReducer=(state= initialState,action)=>{
                 case 'added':{
                     return {
                         ...state,
-                        colors:[...state.colord,color]
+                        colors:[...state.colors,color]
                     }
                 }
-                case 'remove' :{
+                case 'removed' :{
                     return {
                         ...state,
                         colors:state.colors.filter(extistingColor=> extistingColor !==color)
