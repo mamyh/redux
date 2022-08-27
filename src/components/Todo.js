@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import cancelImage from "../assets/images/cancel.png";
-import { colorSelected, deleted, toggled } from "../redux/todos/actions";
+import { colorSelected, deleted, toggled } from "../Redux/todos/actions";
 
 export default function Todo({todo}) {
     const {id,todoText,color,completed} = todo;

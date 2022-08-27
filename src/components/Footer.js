@@ -1,5 +1,5 @@
-import { useSelector,useDispatch } from "react-redux";
-import { colorChanged, statusChanged } from "../redux/filters/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { colorChanged, statusChanged } from "../Redux/filters/actions";
 
 const numberOfTodos =(no_of_todos) =>{
     switch(no_of_todos){
@@ -35,7 +35,7 @@ export default function Footer() {
         <div className="mt-4 flex justify-between text-xs text-gray-500">
             <p>{numberOfTodos(todosRemaining)}</p>
             <ul className="flex space-x-1 items-center text-xs">
-                <li className={`cursor-pointer ${status === 'ALL' && "font-bold"}`} onClick={()=>handleStatusChange('ALL')}>All</li>
+                <li className={`cursor-pointer ${status === 'All' && "font-bold"}`} onClick={()=>handleStatusChange('ALL')}>All</li>
                 <li>|</li>
                 <li className={`cursor-pointer ${status === 'Incomplete' && "font-bold"}`} onClick={()=>handleStatusChange('Incomplete')}>Incomplete</li>
                 <li>|</li>

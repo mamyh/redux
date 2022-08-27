@@ -1,9 +1,9 @@
+import { Provider } from "react-redux";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import TodoList from "./components/TodoList";
-import { Provider } from "react-redux";
-import store from "./redux/store";
+import store from "./Redux/store";
 
 function App() {
     return (
