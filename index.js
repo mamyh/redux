@@ -1,5 +1,7 @@
 const {createStore, applyMiddleware} = require('redux');
-const {applysomeDelays , fetchDataFromAPI} = require('./middleware.js')
+// const {applysomeDelays , fetchAsyncMiddleware} = require('./middleware.js');
+const thunk = require('redux-thunk');
+const {fetchFunction} = require('./fetchFunction')
 
 //initializing the state ;
 const initialState={
@@ -31,8 +33,8 @@ const  reducer =(state=initialState,action)=>{
 }
 
 //creating store
-
-const store = createStore(reducer,applyMiddleware(applysomeDelays, fetchDataFromAPI));
+console.log(thunk);
+const store = createStore(reducer,applyMiddleware(thunk.default));
 
 //subscribing
 store.subscribe(()=>{
@@ -40,6 +42,5 @@ store.subscribe(()=>{
 });
 
 //dispatching the actions;
-store.dispatch({
-    type:"todo/fetchTodo",
-});
+store.dispatch(fetchFunction); 
+console.log('this is sync');
