@@ -31,7 +31,6 @@ export default function Header() {
     const handleClear=()=>{
         dispatch(clearCompleted())
     }
-    console.log(todoText);
     return (
         <div>
             <form className="flex items-center bg-gray-100 px-4 py-4 rounded-md" onSubmit={handleSubmit}>
