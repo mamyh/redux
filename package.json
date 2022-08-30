@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/learnwithsumit/think-in-a-redux-way#readme",
   "dependencies": {
-    "redux": "^4.2.0"
+    "@reduxjs/toolkit": "^1.8.5",
+    "node-fetch": "^2.6.7",
+    "redux": "^4.2.0",
+    "redux-logger": "^3.0.6"
   }
 }
