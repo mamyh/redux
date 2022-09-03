@@ -1,7 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useMatch, useNavigate } from 'react-router-dom';
+import { authorSet } from '../../../features/filters/filtersSlice';
 const RelatedVideosItem = ({video={}}) => {
+  const dispatch = useDispatch();
+  const match = useMatch('/');
+  const navigate = useNavigate();
   const {id,thumbnail, title,duration,author,views,date} = video;
+
+  const handleAuthorSearch =(e)=>{
+    e.preventDefault();
+    dispatch(authorSet(author));
+    if(!match){
+        navigate("/");
+    }
+  }
   return (
     <div className="w-full flex flex-row gap-2 mb-4">
                             <div
@@ -31,7 +44,7 @@ const RelatedVideosItem = ({video={}}) => {
                                 </Link>
                                 <Link
                                     className="text-gray-400 text-xs mt-2 hover:text-gray-600"
-                                    to={`/videos/${id}`}
+                                    to={`/videos/${id}`} onClick={handleAuthorSearch}
                                 >
                                     {author}
                                 </Link>

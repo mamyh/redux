@@ -1,7 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useMatch, useNavigate } from 'react-router-dom';
+import { authorSet } from '../../features/filters/filtersSlice';
+
 const VideoItem = ({video ={}}) => {
+  
+  const dispatch =useDispatch();
+  const match = useMatch('/');
+  const navigate = useNavigate();
   const {id,title,author,avatar,date,duration,views,thumbnail}=video;
+
+  const handleAuthorSearch=(e)=>{
+    e.preventDefault();
+    dispatch(authorSet(author));
+    if(!match){
+        navigate('/');
+    }
+  }
   return (
     <div
         className="col-span-12 sm:col-span-6 md:col-span-3 duration-300 hover:scale-[1.03]"
@@ -42,7 +57,7 @@ const VideoItem = ({video ={}}) => {
                     </Link>
                     <Link
                         className="text-gray-400 text-xs mt-2 hover:text-gray-600"
-                        to={`videos/${id}`}
+                        to={`videos/${id}`} onClick={handleAuthorSearch}
                     >
                        {author}
                     </Link>

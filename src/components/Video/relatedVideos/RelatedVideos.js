@@ -12,7 +12,6 @@ const RelatedVideos = ({videoId,tags}) => {
      dispatch(fetchRelatedVideos({tags,id:videoId}))
   },[dispatch,tags,videoId]);
   
-  console.log(relatedVideos);
   let content =null
   if(isLoading) content = <Loading />
   if(!isLoading && isError) content = <div className="col-span-12">{error}</div>

@@ -1,8 +1,7 @@
 import React from 'react';
 import LikeUnlike from './LikeUnlike';
-
 const Description = ({video}) => {
-    const {title,date,description} =video;
+    const {id, title,date,description,likes,unlikes} =video;
   return (
     <div>
                             <h1
@@ -18,7 +17,7 @@ const Description = ({video}) => {
                                 >
                                     Uploaded on {date}
                                 </h2>
-                               <LikeUnlike />
+                               <LikeUnlike likes={likes} unlikes={unlikes} videoId={id}/>
                             </div>
 
                             <div
@@ -29,5 +28,5 @@ const Description = ({video}) => {
                         </div>
   )
 }
-
+ 
 export default Description
