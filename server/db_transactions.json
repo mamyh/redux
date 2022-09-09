@@ -1,16 +1,100 @@
 {
-    "transactions": [
-        {
-            "id": 1,
-            "name": "Salary from Google",
-            "type": "income",
-            "amount": 1000000
-        },
-        {
-            "id": 2,
-            "name": "Family Expenses",
-            "type": "expense",
-            "amount": 200000
-        }
-    ]
+  "transactions": [
+    {
+      "id": 1,
+      "name": "Salary from Google",
+      "type": "income",
+      "amount": 1000000
+    },
+    {
+      "id": 2,
+      "name": "Family Expenses",
+      "type": "expense",
+      "amount": 200000
+    },
+    {
+      "name": "Upori Income",
+      "type": "income",
+      "amount": 10000,
+      "id": 3
+    },
+    {
+      "name": "baby costs",
+      "type": "expense",
+      "amount": 5000,
+      "id": 4
+    },
+    {
+      "name": "Byke costs",
+      "type": "expense",
+      "amount": 2000,
+      "id": 5
+    },
+    {
+      "name": "parents costs",
+      "type": "expense",
+      "amount": 20000,
+      "id": 6
+    },
+    {
+      "name": "Other Income",
+      "type": "income",
+      "amount": 20000,
+      "id": 7
+    },
+    {
+      "name": "Family ",
+      "type": "income",
+      "amount": 30000,
+      "id": 8
+    },
+    {
+      "name": "Bother costs",
+      "type": "expense",
+      "amount": 6000,
+      "id": 9
+    },
+    {
+      "name": "Sister Costs",
+      "type": "expense",
+      "amount": 8000,
+      "id": 10
+    },
+    {
+      "name": "Family Business",
+      "type": "income",
+      "amount": 40000,
+      "id": 11
+    },
+    {
+      "name": "wife costs",
+      "type": "expense",
+      "amount": 3000,
+      "id": 12
+    },
+    {
+      "name": "Transporting Expense",
+      "type": "expense",
+      "amount": 3000,
+      "id": 13
+    },
+    {
+      "name": "Current Bills",
+      "type": "expense",
+      "amount": 500,
+      "id": 14
+    },
+    {
+      "name": "Freelancing income",
+      "type": "income",
+      "amount": 200000,
+      "id": 15
+    },
+    {
+      "name": "freelancing expense",
+      "type": "expense",
+      "amount": 30000,
+      "id": 16
+    }
+  ]
 }
