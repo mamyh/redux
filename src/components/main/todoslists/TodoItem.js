@@ -19,8 +19,8 @@ const TodoItem = ({todo={}}) => {
             color:passColor
         }});
     }
-    const handleEdit=()=>{
-       setIsModalShow(true);
+    const handleEdit=(value)=>{
+       setIsModalShow(value);
     }
     const handleCheckbox=(id)=>{
        editTodo({id,data:{completed:!completed}})
@@ -49,7 +49,7 @@ const TodoItem = ({todo={}}) => {
         <div className={`select-none flex-1 ${completed && 'line-through'}`}>
             {text}
         </div>
-        <div className="flex-shrink-0 h-4 w-4 ml-auto cursor-pointer" onClick={handleEdit}>
+        <div className="flex-shrink-0 h-4 w-4 ml-auto cursor-pointer" onClick={()=>handleEdit(true)}>
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 width="16" height="16"
 viewBox="0 0 172 172"

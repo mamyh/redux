@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const apiSlice = createApi({
     reducerPath:'todosapi',
     baseQuery:fetchBaseQuery({
-        baseUrl:'http://localhost:9000'
+        baseUrl:'https://lwstodosserverwithmamun.herokuapp.com/'
     }),
     tagTypes:["todos"],
     endpoints:(builder)=>({
