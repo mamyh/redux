@@ -38,7 +38,7 @@ export const authApi= apiSlice.injectEndpoints({
                         accessToken:result.data.accessToken,
                         user:result.data.user
                     }));
-                    dispatch(userLoggedIn);
+                    dispatch(userLoggedIn(result.data));
                 }catch(err){
                     console.log('error from login', err);
                 }

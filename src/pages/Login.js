@@ -16,6 +16,7 @@ export default function Login() {
             setError(responseError?.data)
         }
         if(data?.accessToken){
+            console.log(data, 'localstorage',localStorage.getItem('auth'));
             navigate('/inbox');
         }
     },[data,isError,responseError,navigate])
