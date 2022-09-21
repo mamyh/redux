@@ -13,6 +13,7 @@ export default function ChatItems() {
     const {data:conversations,isLoading,isError,error} =useGetConverationsQuery(email);
 
     let content = null;
+    
     if(isLoading){
         content =<li className="text-center m-2">Loading ...</li>
     }else if(!isLoading && isError){
