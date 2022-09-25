@@ -8,22 +8,22 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [login,{data,isError,isLoading,error:responseError}] =useLoginMutation();
+    const [login, { data, isError, isLoading, error: responseError }] = useLoginMutation();
     const navigate = useNavigate();
-    
-    useEffect(()=>{
-        if(isError){
+
+    useEffect(() => {
+        if (isError) {
             setError(responseError?.data)
         }
-        if(data?.accessToken){
-            console.log(data, 'localstorage',localStorage.getItem('auth'));
+        if (data?.accessToken) {
+            console.log(data, 'localstorage', localStorage.getItem('auth'));
             navigate('/inbox');
         }
-    },[data,isError,responseError,navigate])
-    const handleSubmit =(e)=>{
+    }, [data, isError, responseError, navigate])
+    const handleSubmit = (e) => {
         e.preventDefault();
         login({
-            email,password
+            email, password
         })
     }
     return (
@@ -61,7 +61,7 @@ export default function Login() {
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
                                     placeholder="Email address"
                                     value={email}
-                                    onChange={(e)=>setEmail(e.target.value)}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -77,7 +77,7 @@ export default function Login() {
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
                                     placeholder="Password"
                                     value={password}
-                                    onChange={e=>setPassword(e.target.value)}
+                                    onChange={e => setPassword(e.target.value)}
                                 />
                             </div>
                         </div>

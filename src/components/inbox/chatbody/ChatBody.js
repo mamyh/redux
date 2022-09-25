@@ -18,7 +18,7 @@ export default function ChatBody() {
                                                                         message={messages[0]}
                                                                     />
                                                                     <Messages messages={messages}/>
-                                                                    <Options /> </>
+                                                                    <Options info={messages[0]}/> </>
     return (
         <div className="w-full lg:col-span-2 lg:block">
             <div className="w-full grid conversation-row-grid">

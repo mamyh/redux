@@ -2,14 +2,10 @@ import { apiSlice } from "../api/apiSlice";
 
 const userApi=apiSlice.injectEndpoints({
     endpoints:(builder)=>({
-        addUser:builder.mutation({
-            query:(data)=>({
-                url:'/users',
-                method:'POST',
-                body:data,
-            })
+        getUser:builder.query({
+            query:(email)=>`/users?email=${email}`
         })
     })
 });
 
-export const {useAddUserMutation} = userApi;
+export const {useGetUserQuery} = userApi;

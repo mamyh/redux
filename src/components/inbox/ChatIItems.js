@@ -2,7 +2,7 @@ import gravatarUrl from "gravatar-url";
 import moment from "moment/moment";
 
 import { useSelector } from "react-redux";
-import { Link, } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useGetConverationsQuery } from "../../features/conversations/conversationsApi";
 import { getPartner } from "../../utilities/getPartner";
 import Error from "../ui/Error";
@@ -24,7 +24,7 @@ export default function ChatItems() {
         
         content =<li className="text-center m-2"><Error message={error?.data}/></li>
     }else if(!isLoading && !isError && conversations?.length ===0){
-        content = <li className="text-center m-2">No Videos found !!</li>
+        content = <li className="text-center m-2">No Conversation found !!</li>
     }else if(!isLoading && !isError && conversations?.length > 0){
         content =conversations.map(conversation=>{
              const {id,message,timestamp,users} = conversation;
@@ -39,7 +39,7 @@ export default function ChatItems() {
                         name={partnerName}
                         lastMessage={message}
                         lastTime={moment(timestamp).fromNow()}
-                    />
+                    /> 
                  </Link>
             </li>
               )

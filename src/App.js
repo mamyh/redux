@@ -8,18 +8,48 @@ import Private from "./Route/Private";
 import Public from "./Route/Public";
 
 function App() {
-    const isAuth = useAuthCheck();
-    
-    return !isAuth ? <div>Checking Authentication ...</div> :(
-        <Router>
-            <Routes>
-                <Route path="/" element={<Public><Login /> </Public>} />
-                <Route path="/register" element={<Public><Register /></Public>} />
-                <Route path="/inbox" element={<Private><Conversation /></Private>} />
-                <Route path="/inbox/:id" element={<Private><Inbox /></Private>} />
-            </Routes>
-        </Router>
-    ) ;
+  const isAuth = useAuthCheck();
+
+  return !isAuth ? (
+    <div>Checking Authentication ...</div>
+  ) : (
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Public>
+              <Login />{" "}
+            </Public>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Public>
+              <Register />
+            </Public>
+          }
+        />
+        <Route
+          path="/inbox"
+          element={
+            <Private>
+              <Conversation />
+            </Private>
+          }
+        />
+        <Route
+          path="/inbox/:id"
+          element={
+            <Private>
+              <Inbox />
+            </Private>
+          }
+        />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

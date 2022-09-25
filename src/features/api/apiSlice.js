@@ -11,7 +11,6 @@
            if(token){
              headers.set('Authorization',`Bearer ${token}`)
            }
-           console.log('headers',headers,'endpoints',endpoints)
            return headers;
         }
     }),
