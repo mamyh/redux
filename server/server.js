@@ -43,6 +43,7 @@ router.render = (req, res) => {
     }
     res.json(res.locals.data)
   }
+  
 
 app.use(rules);
 app.use(auth);
