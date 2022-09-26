@@ -23,11 +23,35 @@ export const conversationsApi  = apiSlice.injectEndpoints({
                  try{
                    await cacheDataLoaded;
                    socket.on("conversation",(data)=>{
-                      console.log(data);
+                      updateCachedData(draft=>{
+                        // eslint-disable-next-line eqeqeq
+                        const conversation = draft.find(c => c.id == data?.body?.id)
+                      if(conversation?.id){
+                        
+                         conversation.message = data?.body?.message;
+                         conversation.timestamp = data?.body?.timestamp;
+                      }else{
+                        //do nothing
+                      }
+                      })
                    })
                  }catch(err){
-
+                     await cacheEntryRemoved;
+                     socket.close()
                  }
+            }
+        }),
+        getMoreConversations:builder.query({
+            query:({email,page})=>`/conversations?participants_like=${email}&_sort=timestamp&_order=desc&_page=${page}&_limit=${process.env.REACT_APP_CONVERSATIONS_PER_PAGE}`,
+            async onQueryStarted(args,{queryFulfilled,dispatch}){
+                try{
+                   const moreConversations = await queryFulfilled;
+                   dispatch(apiSlice.util.updateQueryData("getConverations",args.email,(draft)=>{
+                       return [...draft,...moreConversations]
+                   }))
+                }catch(err){
+
+                }
             }
         }),
         getConversation:builder.query({
@@ -44,7 +68,7 @@ export const conversationsApi  = apiSlice.injectEndpoints({
                 const conversation = await queryFulfilled;
                 if(conversation?.data?.id){
                     dispatch(apiSlice.util.updateQueryData("getConverations",args.sender,(draft)=>{
-                        draft.push(conversation.data);
+                       return [conversation?.data, ...draft]
                     }))
                     //silently message will added here
                     const senderDetails = conversation?.data?.users.find(user=>user.email === args.sender);
@@ -71,7 +95,6 @@ export const conversationsApi  = apiSlice.injectEndpoints({
                  const patchResult = dispatch(apiSlice.util.updateQueryData("getConverations",args.sender,(draft)=>{
                     // eslint-disable-next-line eqeqeq
                     const draftConversation = draft.find(singleConversation => singleConversation.id == args.id);
-                    console.log(draftConversation)
                     draftConversation.message = args.data.message;
                     draftConversation.timestamp = args.data.timestamp;
                   }));
@@ -83,18 +106,18 @@ export const conversationsApi  = apiSlice.injectEndpoints({
                     //silently message will added here
                     const senderDetails = conversation?.data?.users.find(user=>user.email === args.sender);
                     const receiverDetails = conversation?.data?.users.find(user=>user.email !== args.sender);
-                    const res = await dispatch(messageApi.endpoints.addMessage.initiate({
+                    dispatch(messageApi.endpoints.addMessage.initiate({
                        conversationId:conversation?.data?.id,
                        timestamp:conversation?.data?.timestamp,
                        sender:senderDetails,
                        receiver:receiverDetails,
                        message:conversation?.data?.message
-                    })).unwrap();
+                    }));
                    
                     //pessimistically cach update start 
-                    dispatch(apiSlice.util.updateQueryData("getMessages",args.id.toString(),(draft)=>{
-                        draft.push(res);
-                    }))
+                    // dispatch(apiSlice.util.updateQueryData("getMessages",args.id.toString(),(draft)=>{
+                    //     draft.push(res);
+                    // }))
                     //pessimistically cach update end
                 }
                }catch(err){

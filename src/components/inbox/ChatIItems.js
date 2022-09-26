@@ -28,6 +28,7 @@ export default function ChatItems() {
     }else if(!isLoading && !isError && conversations?.length > 0){
         content =conversations.map(conversation=>{
              const {id,message,timestamp,users} = conversation;
+             
              const {name:partnerName,email:partnerEmail} =getPartner(users,email);
               return (
                 <li key={id}>
