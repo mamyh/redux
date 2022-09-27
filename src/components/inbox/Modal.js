@@ -23,12 +23,16 @@ export default function Modal({ open, control }) {
     
     //listening to the participant
     useEffect(()=>{
-
+        console.log('participant',participant)
        if(participant?.length > 0 && participant[0].email !==myEmail){
+        console.log(participant)
         //check conversation exist
-          dispatch(conversationsApi.endpoints.getConversation.initiate({userEmail:myEmail,participantEmail: to})).unwrap().then(data=>setConversation(data)).catch(err=>setEmailError('there is an error from conversations data'));
+          dispatch(conversationsApi.endpoints.getConversation.initiate({userEmail:myEmail,participantEmail: to})).unwrap().then(data=>{
+            console.log('data',data,'conversation',conversation)
+            setConversation(data)
+        }).catch(err=>setEmailError('there is an error from conversations data'));
        }
-    },[participant,myEmail,dispatch,to]);
+    },[participant,myEmail,dispatch,to,conversation]);
 
    //listening to the conversation succession
    useEffect(()=>{
@@ -61,11 +65,13 @@ export default function Modal({ open, control }) {
     }
     
     const handleEmail=debounce(doSearch,2000);
-
+    
     const handleSubmit = (e)=>{
         e.preventDefault();
+        console.log(conversation)
         if(conversation?.length > 0 ){
             //edit conversation
+            
             updateConversation({id:conversation[0].id,sender:myEmail,data:{
                 participants:`${myEmail}-${participant[0].email}`,
                 users:[userLoggedIn,participant[0]],
@@ -83,6 +89,8 @@ export default function Modal({ open, control }) {
                 
             }}) 
         }
+        setTo('')
+        
     }
     return (
         open && (

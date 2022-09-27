@@ -29,7 +29,6 @@ export default function ChatItems() {
            }
     },[page,dispatch,email])
     useEffect(()=>{
-        console.log(totalPage)
            if(totalPage > 0 && totalPage > page){
             setHasPage(true);
            }else{
@@ -39,7 +38,6 @@ export default function ChatItems() {
            
     },[totalPage,page]);
     
-    console.log(hasPage)
     
     
     let content = null;

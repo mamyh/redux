@@ -78,7 +78,10 @@ export const conversationsApi  = apiSlice.injectEndpoints({
                 const conversation = await queryFulfilled;
                 if(conversation?.data?.id){
                     dispatch(apiSlice.util.updateQueryData("getConverations",args.sender,(draft)=>{
-                       return [conversation?.data, ...draft.conversations]
+                       return  {
+                          conversations: [conversation?.data,...draft.conversations],
+                          page:draft.page
+                       }
                     }))
                     //silently message will added here
                     const senderDetails = conversation?.data?.users.find(user=>user.email === args.sender);

@@ -17,7 +17,6 @@ import { userLoggedOut } from '../auth/authSlice';
     reducerPath:'api',
     baseQuery:async(args,api,extraOptions)=>{
          const result  = await customBaseQuery(args,api,extraOptions);
-         console.log(result);
          if(result?.error?.status === 401){
             api.dispatch(userLoggedOut());
             localStorage.clear();
