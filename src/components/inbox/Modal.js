@@ -15,7 +15,7 @@ export default function Modal({ open, control }) {
     const [needUser, setNeedUser] = useState(false);
     const [conversation, setConversation] = useState(undefined);
     const {data:participant,isError:isParticipantError,error:participantErro} =useGetUserQuery(to,{
-        skip:!needUser
+        skip:!needUser 
     });
     const [addConversation,{isSuccess:isAddConversationSuccess}] = useAddConversationMutation();
     const [updateConversation,{isSuccess:isEditConversationSuccess}] = useUpdateConversationMutation()
@@ -23,17 +23,14 @@ export default function Modal({ open, control }) {
     
     //listening to the participant
     useEffect(()=>{
-        console.log('participant',participant)
+        
        if(participant?.length > 0 && participant[0].email !==myEmail){
-        console.log(participant)
         //check conversation exist
-          dispatch(conversationsApi.endpoints.getConversation.initiate({userEmail:myEmail,participantEmail: to})).unwrap().then(data=>{
-            console.log('data',data,'conversation',conversation)
-            setConversation(data)
-        }).catch(err=>setEmailError('there is an error from conversations data'));
+           dispatch(conversationsApi.endpoints.getConversation.initiate({
+            userEmail:myEmail,participantEmail:to
+           })).unwrap().then(data=>setConversation(data)).catch(err=>setEmailError(err));
        }
-    },[participant,myEmail,dispatch,to,conversation]);
-
+    },[participant,myEmail,to,dispatch]);
    //listening to the conversation succession
    useEffect(()=>{
        if(isAddConversationSuccess || isEditConversationSuccess){
@@ -89,8 +86,7 @@ export default function Modal({ open, control }) {
                 
             }}) 
         }
-        setTo('')
-        
+        setTo('');
     }
     return (
         open && (

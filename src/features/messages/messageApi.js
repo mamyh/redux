@@ -4,7 +4,7 @@ import { apiSlice } from "../api/apiSlice";
 export const messageApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getMessages: builder.query({
-            query: (id) => `/messages?conversationId=${id}&_sort=timestamp&_order=desc&_limit=${process.env.REACT_APP_MESSAGES_PER_PAGE}`,
+            query: (id) => `/messages?conversationId=${id}&_sort=timestamp&_order=desc&_page=1&_limit=${process.env.REACT_APP_MESSAGES_PER_PAGE}`,
             async onCacheEntryAdded(args,{updateCachedData,cacheDataLoaded,cacheEntryRemoved}){
                 //create socket 
                 const socket =io('http://localhost:9000',{
@@ -29,6 +29,12 @@ export const messageApi = apiSlice.injectEndpoints({
                 }
             }
         }),
+        getMoreMessages:builder.query({
+            query:({id,page})=>`/messages?conversationId=${id}&_sort=timestamp&_order=desc&_page=${page}&_limit=${process.env.REACT_APP_MESSAGES_PER_PAGE}`,
+            async onQueryStarted(args,{dispatch,queryFulfilled}){
+                
+            }
+        })
         addMessage:builder.mutation({
             query:(data)=>({
                 url:'/messages',

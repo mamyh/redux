@@ -23,6 +23,6 @@ import { userLoggedOut } from '../auth/authSlice';
          }
          return result;
     },
-    tagTypes:[],
+    tagTypes:['converstaion'],
     endpoints:(builder)=>({}),
  })

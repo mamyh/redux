@@ -6,7 +6,7 @@ export const conversationsApi  = apiSlice.injectEndpoints({
     endpoints:(builder) =>({
         getConverations:builder.query({
             query:(email) => `/conversations?participants_like=${email}&_sort=timestamp&_order=desc&_page=1&_limit=${process.env.REACT_APP_CONVERSATIONS_PER_PAGE}`,
-            transformResponse(response,meta){
+            transformResponse(response,meta,){
                 const totalCount = meta?.response?.headers?.get("X-Total-Count");
                 const page = Math.ceil(totalCount/Number(process.env.REACT_APP_CONVERSATIONS_PER_PAGE));
                 return {conversations:response,page}
@@ -14,6 +14,7 @@ export const conversationsApi  = apiSlice.injectEndpoints({
             async onCacheEntryAdded(args,{
                 updateCachedData,cacheDataLoaded,cacheEntryRemoved
             }){
+                
                  //create socket
                  const socket =io('http://localhost:9000',{
                     reconnectionDelay:1000,
@@ -27,6 +28,7 @@ export const conversationsApi  = apiSlice.injectEndpoints({
 
                  try{
                    await cacheDataLoaded;
+                 
                    socket.on("conversation",(data)=>{
                       updateCachedData(draft=>{
                         // eslint-disable-next-line eqeqeq
@@ -65,7 +67,8 @@ export const conversationsApi  = apiSlice.injectEndpoints({
             }
         }),
         getConversation:builder.query({
-            query:({userEmail,participantEmail})=>`/conversations?participants_like=${userEmail}-${participantEmail}&participants_like=${participantEmail}-${userEmail}`
+            query:({userEmail,participantEmail})=>`/conversations?participants_like=${userEmail}-${participantEmail}&&participants_like=${participantEmail}-${userEmail}`,
+           providesTags:['conversation']
         }),
         addConversation:builder.mutation({
             query:({sender,data})=>({
@@ -74,7 +77,6 @@ export const conversationsApi  = apiSlice.injectEndpoints({
                 body:data
             }),
             async onQueryStarted(args,{queryFulfilled,dispatch}){
-                
                 const conversation = await queryFulfilled;
                 if(conversation?.data?.id){
                     dispatch(apiSlice.util.updateQueryData("getConverations",args.sender,(draft)=>{
@@ -95,7 +97,8 @@ export const conversationsApi  = apiSlice.injectEndpoints({
                     }))
                     
                 }
-            }
+            },
+            invalidatesTags:['conversation'],
         }),
         updateConversation:builder.mutation({
             query:({id,sender,data})=>({
@@ -136,7 +139,8 @@ export const conversationsApi  = apiSlice.injectEndpoints({
                }catch(err){
                  patchResult.undo();
                }
-            }
+            },
+            invalidatesTags:['conversation']
         })
 
     }),
