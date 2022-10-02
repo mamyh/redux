@@ -2,7 +2,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 import Message from "./Message";
 
-export default function Messages({messages=[]}) {
+export default function Messages({pages =1, messages=[]}) {
     const {user} = useSelector(state=> state.auth) ||{};
     const {email} = user ||{}
 
@@ -12,7 +12,7 @@ export default function Messages({messages=[]}) {
             <ul className="space-y-2">
                 <InfiniteScroll
                     dataLength={messages?.length}
-                    next={()=>console.log('fetching')}
+                    next={()=>console.log('fetching',pages)}
                     hasMore={false}
                 >
                     {messages.slice().sort((a,b)=> a.timestamp - b.timestamp).map(message=>{
