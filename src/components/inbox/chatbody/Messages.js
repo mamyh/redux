@@ -9,21 +9,26 @@ export default function Messages({conversationId,pages =1, messages=[]}) {
     const {email} = user ||{}
     const [myPage, setMyPage] = useState(1);
     const dispatch = useDispatch();
-    const [hasScroll, setHasScroll] = useState(true)
+    const [hasScroll, setHasScroll] = useState(false)
     
     const nextPage =()=>{
         setMyPage(prevPage => prevPage +1);
     }
-
     useEffect(()=>{
-        console.log('page',myPage);
-      if(pages >  myPage){
-        setHasScroll(true);
-        dispatch(messageApi.endpoints.getMoreMessages.initiate({id:conversationId,page:myPage}))
-      }else{
-        setHasScroll(false)
-      }
-    },[myPage,pages,dispatch,conversationId]);
+          if(myPage > 1 && pages> myPage){
+            dispatch(messageApi.endpoints.getMoreMessages.initiate({
+              id:conversationId,
+              page:myPage
+            }))
+          }
+    },[pages,myPage,dispatch,conversationId]);
+    useEffect(()=>{
+        if(pages >1 && pages > myPage){
+          setHasScroll(true);
+        }else{
+          setHasScroll(false)
+        }
+    },[pages,myPage]);
     
     return (
         <div id="scrollableDiv" className="relative w-full h-[calc(100vh_-_197px)] p-6 overflow-y-auto flex flex-col-reverse">
