@@ -30,8 +30,8 @@ export const messageApi = apiSlice.injectEndpoints({
             },
             transformResponse(response,meta){
                 const totalMessages = meta.response.headers.get('X-Total-Count');
+                
                 const pages = Math.ceil(totalMessages/process.env.REACT_APP_MESSAGES_PER_PAGE);
-               
                 return {
                     messages:response,
                     page:pages,
@@ -43,7 +43,14 @@ export const messageApi = apiSlice.injectEndpoints({
             async onQueryStarted(args,{dispatch,queryFulfilled}){
                 try{
                    const moreMessages = await queryFulfilled;
-                   console.log(moreMessages);
+                   if(moreMessages?.data.length > 0){
+                     dispatch(apiSlice.util.updateQueryData("getMessages",args.id.toString(),(draft)=>{
+                        return {
+                            messages:[...moreMessages.data,...draft.messages],
+                            page:Number(draft.page)
+                        }
+                     }))
+                   }
                 }catch(err){
                     console.log('error in more messages',err)
                 }
